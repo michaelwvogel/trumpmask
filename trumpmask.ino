@@ -1,5 +1,11 @@
 /*
- * This example plays every .WAV file it finds on the SD card in a loop
+ * This sketch draws from the daphc example included in the WaveHC library for the Adafruit Arduino Waveshield, 
+ * as well as the adavoice sketch for the Adafruit Microphone Amplifier Breakout.
+ * 
+ * This sketch detects microphone input to trigger WAV playback, and monitors input from 
+ * an IR proximity sensor, manipulating WAV playback volume based on this analog input.
+ * 
+ * May Trump's life be short.
  */
 #include <WaveHC.h>
 #include <WaveUtil.h>
@@ -16,7 +22,9 @@ const int sampleWindow = 50; // Sample window width in mS (50 mS = 20Hz)
 unsigned int sample;
 
 const char *sounds[] = {
-  "trump1" , "trump2" , "trump3" , "trump4" , "trump5" , "trump6" , "trump7"  }; 
+  "trump0" , "trump1" , "trump2" , "trump3" , "trump4" , "trump5" , "trump6" , "trump7"  }; 
+
+int proximitySensorPin = 3; //analog pin 3
 
 /*
  * Define macro to put error messages in flash memory
@@ -69,6 +77,8 @@ void setup() {
 
   // Print out all of the files in all the directories.
   root.ls(LS_R | LS_FLAG_FRAGMENTED);
+  //Play the startup sound, which is Donald Trump saying "Good morning"
+  playFile(0);
 }
 
 //////////////////////////////////// LOOP
@@ -101,9 +111,12 @@ void loop() {
  
    Serial.println(volts);
   if (volts > 0.5){
-    int fileIndex = random(0, 7);
+    int fileIndex = random(1, 7);
     playFile(fileIndex);
   }
+  //int proximityReading = analogRead(proximitySensorPin);
+  //Serial.println(proximityReading);
+  //delay(100);
 }
 
 /////////////////////////////////// HELPERS
@@ -128,18 +141,18 @@ void playFile(int index){
   while (wave.isplaying) {// playing occurs in interrupts, so we print dots in realtime
     putstring(".");
     if (!(++n % 32))Serial.println();
-    int proximity = 0;
-    if ( proximity > 100) {
-      wave.volume = 0;
+    int proximityReading = analogRead(proximitySensorPin);
+    if ( proximityReading > 200) {
+      wave.volume = 2;
     }
-    else if (false) {
+    /*else if (false) {
       wave.volume = 1;
     }
     else if (false) {
       wave.volume = 2;
-    }
+    }*/
     else {
-      wave.volume = 3;
+      wave.volume = 0;
     }
 
     delay(100);

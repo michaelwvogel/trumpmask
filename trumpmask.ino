@@ -22,7 +22,7 @@
  * - WaveHC library for Arduino
  * - WAV files on FAT-formatted SD card (included here)
  * 
- * May Trump's life be short.
+ * May Trump's reign be short.
  */
  
 #include <WaveHC.h>

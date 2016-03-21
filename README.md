@@ -17,9 +17,10 @@ Hardware requirements:
 * – Donald Trump halloween mask
 * – Baseball cap to hide components
 
-* Software requirements:
+
+Software requirements:
 * – WaveHC library for Arduino
 * – WAV files on FAT-formatted SD card
 * – the .ino contained in this repo
 
-May Trump's reign be short.
+May Trump's life be short.

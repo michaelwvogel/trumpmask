@@ -23,4 +23,4 @@ Software requirements:
 * – WAV files on FAT-formatted SD card
 * – the .ino contained in this repo
 
-May Trump's life be short.
+May Trump's reign be short.
